@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compound Interest Calculator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px; /* Add padding to body */
+}
+
+h1 {
+  background-color: #333;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  left: -20px;
+  right: -40px;
+  top: -20px;
+  max-width: 100%; /* Use max-width to prevent expansion beyond the viewport */
+}
+
+form {
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+/* Rest of your styles remain unchanged */
+
+
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Compound Interest Calculator</h1>
+
+  <form id="compoundInterestForm">
+    <label for="principal">Principal amount:</label>
+    <input type="number" id="principal" required>
+
+    <label for="rate">Annual interest rate (%):</label>
+    <input type="number" id="rate" step="0.01" required>
+
+    <label for="time">Number of years:</label>
+    <input type="number" id="time" required>
+
+    <button type="button" onclick="calculateCompoundInterest()">Calculate</button>
+  </form>
+
+  <div id="result"></div>
+
+  <canvas id="chart" width="400" height="200"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function calculateCompoundInterest() {
+      var principal = parseFloat(document.getElementById('principal').value);
+      var rate = parseFloat(document.getElementById('rate').value) / 100;
+      var time = parseInt(document.getElementById('time').value);
+
+      var compoundInterest = principal * Math.pow((1 + rate), time) - principal;
+
+      var resultElement = document.getElementById('result');
+      resultElement.innerHTML = 'Compound Interest: $' + compoundInterest.toFixed(2);
+
+      // Chart.js
+      var ctx = document.getElementById('chart').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: Array.from({ length: time }, (_, i) => (i + 1).toString()),
+          datasets: [{
+            label: 'Compound Interest Over Time',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+            data: Array.from({ length: time }, (_, i) => principal * Math.pow((1 + rate), i + 1) - principal),
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
