@@ -6,32 +6,28 @@
   <title>Compound Interest Calculator</title>
   <style>
     body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px; /* Add padding to body */
-}
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px; /* Add padding to body */
+    }
 
-h1 {
-  background-color: #333;
-  color: #fff;
-  margin: 0;
-  padding: 20px;
-  text-align: center;
-  position: relative;
-  left: -20px;
-  right: -20px;
-  top: -20px;
-  width: 100%; /* Use max-width to prevent expansion beyond the viewport */
-}
+    h1 {
+      background-color: #333;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      left: -20px;
+      right: -20px;
+      top: -20px;
+      width: 100%; /* Use max-width to prevent expansion beyond the viewport */
+    }
 
-form {
-  max-width: 400px;
-  margin: 20px auto;
-}
-
-/* Rest of your styles remain unchanged */
-
-
+    form {
+      max-width: 400px;
+      margin: 20px auto;
+    }
 
     label {
       display: block;
@@ -65,6 +61,18 @@ form {
     canvas {
       margin-top: 20px;
     }
+
+    #totalSavingsTable {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    #totalSavingsTable th, #totalSavingsTable td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -81,6 +89,9 @@ form {
     <label for="time">Number of years:</label>
     <input type="number" id="time" required>
 
+    <label for="monthlyContribution">Monthly contribution:</label>
+    <input type="number" id="monthlyContribution">
+
     <button type="button" onclick="calculateCompoundInterest()">Calculate</button>
   </form>
 
@@ -88,16 +99,38 @@ form {
 
   <canvas id="chart" width="100%" height="200"></canvas>
 
+  <table id="totalSavingsTable">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Total Savings</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     function calculateCompoundInterest() {
       var principal = parseFloat(document.getElementById('principal').value);
       var rate = parseFloat(document.getElementById('rate').value) / 100;
       var time = parseInt(document.getElementById('time').value);
-
-      var compoundInterest = principal * Math.pow((1 + rate), time) - principal;
+      var monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value) || 0;
 
       var resultElement = document.getElementById('result');
+      var chartElement = document.getElementById('chart');
+      var totalSavingsTable = document.getElementById('totalSavingsTable');
+
+      if (isNaN(principal) || isNaN(rate) || isNaN(time) || isNaN(monthlyContribution)) {
+        // Show an error message if any of the inputs is not a valid number
+        chartElement.style.display = 'none';
+        totalSavingsTable.style.display = 'none';
+        resultElement.innerHTML = 'Invalid input. Please enter valid numbers.';
+        return;
+      }
+
+      var compoundInterest = calculateTotalSavings(principal, rate, time, monthlyContribution);
+
       resultElement.innerHTML = 'Compound Interest: $' + compoundInterest.toFixed(2);
 
       // Chart.js
@@ -111,7 +144,7 @@ form {
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 2,
             pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-            data: Array.from({ length: time }, (_, i) => principal * Math.pow((1 + rate), i + 1) - principal),
+            data: Array.from({ length: time }, (_, i) => calculateTotalSavings(principal, rate, i + 1, monthlyContribution)),
           }]
         },
         options: {
@@ -119,9 +152,46 @@ form {
             y: {
               beginAtZero: true
             }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  var label = context.dataset.label || '';
+                  if (label) {
+                    label += ': ';
+                  }
+                  label += '$' + context.formattedValue.toFixed(2);
+                  return label;
+                }
+              }
+            }
           }
         }
       });
+
+      // Populate Total Savings table
+      totalSavingsTable.innerHTML = '';
+      for (var i = 0; i < time; i++) {
+        var totalSavings = calculateTotalSavings(principal, rate, i + 1, monthlyContribution);
+        var row = totalSavingsTable.insertRow();
+        var yearCell = row.insertCell(0);
+        var savingsCell = row.insertCell(1);
+        yearCell.textContent = (i + 1).toString();
+        savingsCell.textContent = '$' + totalSavings.toFixed(2);
+      }
+
+      // Show the chart and table
+      chartElement.style.display = 'block';
+      totalSavingsTable.style.display = 'table';
+    }
+
+    function calculateTotalSavings(principal, rate, years, monthlyContribution) {
+      var totalSavings = principal;
+      for (var i = 0; i < years; i++) {
+        totalSavings = (totalSavings + monthlyContribution) * (1 + rate / 12);
+      }
+      return totalSavings - principal;
     }
   </script>
 
