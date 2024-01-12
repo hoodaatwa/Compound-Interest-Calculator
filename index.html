@@ -455,88 +455,98 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    function calculateCompoundInterest() {
-      var principal = parseFloat(document.getElementById('principal').value);
-      var rate = parseFloat(document.getElementById('rate').value) / 100;
-      var time = parseInt(document.getElementById('time').value);
-      var monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value) || 0;
+var chart; // Declare chart as a global variable
 
-      var resultElement = document.getElementById('result');
-      var chartElement = document.getElementById('chart');
-      var totalSavingsTable = document.getElementById('totalSavingsTable');
+function calculateCompoundInterest() {
+  console.log('calculateCompoundInterest called'); // Logging for debugging
 
-      if (isNaN(principal) || isNaN(rate) || isNaN(time) || isNaN(monthlyContribution)) {
-        // Show an error message if any of the inputs is not a valid number
-        chartElement.style.display = 'none';
-        totalSavingsTable.style.display = 'none';
-        resultElement.innerHTML = 'Invalid input. Please enter valid numbers.';
-        return;
-      }
+  var principal = parseFloat(document.getElementById('principal').value);
+  var rate = parseFloat(document.getElementById('rate').value) / 100;
+  var time = parseInt(document.getElementById('time').value);
+  var monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value) || 0;
 
-      var compoundInterest = calculateTotalSavings(principal, rate, time, monthlyContribution);
+  var resultElement = document.getElementById('result');
+  var chartElement = document.getElementById('chart');
+  var totalSavingsTable = document.getElementById('totalSavingsTable');
+  var ctx = chartElement.getContext('2d');
 
-      resultElement.innerHTML = 'Compound Interest: $' + compoundInterest.toFixed(2);
+  // Clear existing chart and table data
+  if (chart) {
+    chart.destroy();
+  }
+  ctx.clearRect(0, 0, chartElement.width, chartElement.height);
+  totalSavingsTable.innerHTML = '';
 
-      // Chart.js
-      var ctx = document.getElementById('chart').getContext('2d');
-      var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: Array.from({ length: time }, (_, i) => (i + 1).toString()),
-          datasets: [{
-            label: 'Compound Interest Over Time',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 2,
-            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-            data: Array.from({ length: time }, (_, i) => calculateTotalSavings(principal, rate, i + 1, monthlyContribution)),
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  var label = context.dataset.label || '';
-                  if (label) {
-                    label += ': ';
-                  }
-                  label += '$' + context.formattedValue.toFixed(2);
-                  return label;
-                }
+  if (isNaN(principal) || isNaN(rate) || isNaN(time) || isNaN(monthlyContribution)) {
+    // Show an error message if any of the inputs is not a valid number
+    chartElement.style.display = 'none';
+    totalSavingsTable.style.display = 'none';
+    resultElement.innerHTML = 'Invalid input. Please enter valid numbers.';
+    return;
+  }
+
+  var compoundInterest = calculateTotalSavings(principal, rate, time, monthlyContribution);
+
+  resultElement.innerHTML = 'Compound Interest: $' + compoundInterest.toFixed(2);
+
+  // Chart.js
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({ length: time }, (_, i) => (i + 1).toString()),
+      datasets: [{
+        label: 'Compound Interest Over Time',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+        data: Array.from({ length: time }, (_, i) => calculateTotalSavings(principal, rate, i + 1, monthlyContribution)),
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              var label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
               }
+              label += '$' + context.raw.toFixed(2);
+              return label;
             }
           }
         }
-      });
-
-      // Populate Total Savings table
-      totalSavingsTable.innerHTML = '';
-      for (var i = 0; i < time; i++) {
-        var totalSavings = calculateTotalSavings(principal, rate, i + 1, monthlyContribution);
-        var row = totalSavingsTable.insertRow();
-        var yearCell = row.insertCell(0);
-        var savingsCell = row.insertCell(1);
-        yearCell.textContent = (i + 1).toString();
-        savingsCell.textContent = '$' + totalSavings.toFixed(2);
       }
-
-      // Show the chart and table
-      chartElement.style.display = 'block';
-      totalSavingsTable.style.display = 'table';
     }
+  });
 
-    function calculateTotalSavings(principal, rate, years, monthlyContribution) {
-      var totalSavings = principal;
-      for (var i = 0; i < years; i++) {
-        totalSavings = (totalSavings + monthlyContribution) * (1 + rate / 12);
-      }
-      return totalSavings - principal;
-    }
+  // Populate Total Savings table
+  for (var i = 0; i < time; i++) {
+    var totalSavings = calculateTotalSavings(principal, rate, i + 1, monthlyContribution);
+    var row = totalSavingsTable.insertRow();
+    var yearCell = row.insertCell(0);
+    var savingsCell = row.insertCell(1);
+    yearCell.textContent = (i + 1).toString();
+    savingsCell.textContent = '$' + totalSavings.toFixed(2);
+  }
+
+  // Show the chart and table
+  chartElement.style.display = 'block';
+  totalSavingsTable.style.display = 'table';
+}
+
+function calculateTotalSavings(principal, rate, years, monthlyContribution) {
+  var totalSavings = principal;
+  for (var i = 0; i < years; i++) {
+    totalSavings = (totalSavings + monthlyContribution) * (1 + rate / 12);
+  }
+  return totalSavings - principal;
+}
   </script>
 
 
@@ -700,12 +710,5 @@
 
 </script>
 
-
-
-    
-
 </body>
-
-
-
 </html>
