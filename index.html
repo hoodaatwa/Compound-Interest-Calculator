@@ -287,6 +287,14 @@
 
     }
 
+    #calculatorContainer {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    #chartContainer {
+      margin-top: 20px;
+    }
   </style>
 
 
@@ -422,7 +430,7 @@
 
 
   <h1>Compound Interest Calculator</h1>
-
+<div id="calculatorContainer">
   <form id="compoundInterestForm">
     <label for="principal">Principal amount:</label>
     <input type="number" id="principal" required>
@@ -452,6 +460,7 @@
     </thead>
     <tbody></tbody>
   </table>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -711,4 +720,5 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
 </script>
 
 </body>
+
 </html>
