@@ -9,35 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Compound Interest Calculator</title>
-
-
     <meta name="google-site-verification" content="MazztROu4sDUSQZi9IHMZf3ralhBMUQr_0jDs9SyHg8" />
-
-
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&family=Rubik+Broken+Fax&family=Rubik+Doodle+Triangles&display=swap" rel="stylesheet">
 
-    
-
-    
-
-
-
     <!-- Material-UI styles -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mui/system@5.0.1/dist/mui.min.css" integrity="sha384-GLhlTQ8iKSeUcycr6i3AxSsLOp/5StETHxHjOVq9XuWqIbbVZNyQOdX+yG5bwDciF" crossorigin="anonymous">
-
-
-
-  
-
-
 
   <!-- Include Material-UI styles and icons -->
 
@@ -50,355 +33,575 @@
     integrity="sha384-rGi1CEVZxh5F2neuJb3Nm4MEWxh1OrlCcFCi5TjW60RPI+EBo3MBukk1MTtPHtah" crossorigin="anonymous">
 
   <style>
-
-
-
-    body {
-
-            font-family: 'Roboto', sans-serif;
-
-            margin: 55px 0 0;
-
-            padding: 0px;
-
-            background-color: #446FAA1A;
-
-        }
-
-
-
-    #navbar {
-
-      position: fixed;
-
-      top: 0px;
-
-      left: 0;
-
-      width: 100%;
-
-      background-color: white;
-
-      padding: 10px;
-
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-      z-index: 3;
-
-    }
-
-
-
-    #menuToggle {
-
-      cursor: pointer;
-
-      transition: transform 0.3s;
-
-      padding: 5px;
-
-      width: 20px;
-
-      box-sizing: content-box;
-
-    }
-
-
-
-    #menuIcon {
-
-      font-size: 24px;
-
-      color: #1976D2;
-
-    }
-
-
-
-    #menuIcon.close {
-
-      transform: rotate(180deg);
-
-    }
-
-
-
-    #menuOverlay {
-
-      position: fixed;
-
-      top: 0px;
-
-      left: 0;
-
-      width: 100%;
-
-      height: 100%;
-
-      background-color: rgba(0, 0, 0, 0.5);
-
-      display: none;
-
-      z-index: 2;
-
-      overflow-y: auto;
-
-    }
-
-
-
-    #repoList {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      justify-content: space-around;
-
-      padding: 0;
-
-      max-width: 800px;
-
-      margin: 70px auto auto;
-
-    }
-
-
-
-    .repoCard {
-
-      background-color: white;
-
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-      margin: 10px;
-
-      padding: 20px;
-
-      width: 100%;
-
-      border-radius: 8px;
-
-      transition: box-shadow 0.3s;
-
-      cursor: pointer;
-
-    }
-
-
-
-    .repoCard:hover {
-
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-
-    }
-
-
-
-    .repoTitle {
-
-      font-size: 1.5rem;
-
-      color: #1976D2;
-
-      margin-bottom: 10px;
-
-    }
-
-
-
-    .repoDescription {
-
-      color: #555;
-
-      margin-bottom: 15px;
-
-    }
-
-
-
-    .repoLink {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: flex-start;
-
-      margin-top: 15px;
-
-    }
-
-
-
-    .repoLink a {
-
-      color: white;
-
-      text-decoration: none;
-
-      background-color: #1976D2;
-
-      padding: 10px 15px;
-
-      border-radius: 5px;
-
-      display: inline-block;
-
-      transition: background-color 0.3s;
-
-    }
-
-
-
-    .repoLink a:hover {
-
-      background-color: #1565C0;
-
-    }
-
-
-
-    .repoLink i {
-
-      margin-left: 5px;
-
-    }
-
-
-
-    .center {
-
-      color: white;
-
-      text-decoration: none;
-
-      background-color: #1976D2;
-
-      padding: 10px 15px;
-
-      border-radius: 5px;
-
-      display: inline-block;
-
-      transition: background-color 0.3s;
-
-      margin: 10px;
-
-    }
-
-    #calculatorContainer {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    #chartContainer {
-      margin-top: 20px;
-    }
+/* Complete Wealth Calculator CSS Redesign */
+
+/* Base styling and variables */
+:root {
+  --wealth-gold: #d4af37;
+  --wealth-dark-gold: #b8860b;
+  --wealth-black: #121212;
+  --wealth-cream: #f8f0e3;
+  --wealth-green: #1e5631;
+  --wealth-light-green: #39a869;
+  --wealth-blue: #183153;
+  --wealth-accent: #6a359c;
+  --wealth-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --wealth-text: #333333;
+  --wealth-light: #ffffff;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(135deg, var(--wealth-cream) 0%, #ffffff 100%);
+  color: var(--wealth-text);
+  line-height: 1.6;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* Navigation bar styling */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, var(--wealth-black) 0%, var(--wealth-blue) 100%);
+  padding: 12px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#menuToggle {
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+#menuToggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#menuIcon {
+  font-size: 22px;
+  color: var(--wealth-gold);
+  transition: transform 0.3s ease;
+}
+
+#menuIcon.close {
+  transform: rotate(180deg);
+}
+
+/* Menu overlay styling */
+#menuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: none;
+  z-index: 999;
+  overflow-y: auto;
+  padding-top: 70px;
+}
+
+#repoList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.repoCard {
+  background: linear-gradient(45deg, var(--wealth-black) 0%, var(--wealth-blue) 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.repoCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--wealth-gold) 0%, var(--wealth-light-green) 100%);
+}
+
+.repoCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.repoTitle {
+  font-size: 1.6rem;
+  color: var(--wealth-gold);
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.repoTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--wealth-gold);
+}
+
+.repoDescription {
+  color: var(--wealth-light);
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.repoLink {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.repoLink a {
+  color: var(--wealth-black);
+  text-decoration: none;
+  background: linear-gradient(45deg, var(--wealth-gold) 0%, var(--wealth-dark-gold) 100%);
+  padding: 12px 20px;
+  border-radius: 30px;
+  display: inline-block;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.repoLink a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.repoLink a:hover::before {
+  left: 100%;
+}
+
+.repoLink a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.repoLink i {
+  margin-left: 8px;
+}
+
+.center {
+  color: var(--wealth-black);
+  text-decoration: none;
+  background: linear-gradient(45deg, var(--wealth-gold) 0%, var(--wealth-dark-gold) 100%);
+  padding: 15px 30px;
+  border-radius: 30px;
+  display: inline-block;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 30px auto;
+  font-size: 1.1rem;
+}
+
+.center:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Main heading styling */
+h1 {
+  background: linear-gradient(45deg, var(--wealth-blue) 0%, var(--wealth-black) 100%);
+  color: var(--wealth-light);
+  margin: 0;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: var(--wealth-shadow);
+  font-weight: 700;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  border-bottom: 5px solid var(--wealth-gold);
+  margin-top: 55px;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 5px;
+  background: var(--wealth-gold);
+}
+
+/* Calculator container */
+#calculatorContainer {
+  max-width: 650px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: var(--wealth-shadow);
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  overflow: hidden;
+}
+
+#calculatorContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23d4af37' fill-opacity='0.05' d='M11.1,44.9c5.2,0,9.4-4.2,9.4-9.4s-4.2-9.4-9.4-9.4s-9.4,4.2-9.4,9.4S5.9,44.9,11.1,44.9z M50,44.9 c5.2,0,9.4-4.2,9.4-9.4s-4.2-9.4-9.4-9.4s-9.4,4.2-9.4,9.4S44.8,44.9,50,44.9z M88.9,44.9c5.2,0,9.4-4.2,9.4-9.4s-4.2-9.4-9.4-9.4 s-9.4,4.2-9.4,9.4S83.7,44.9,88.9,44.9z M11.1,83.8c5.2,0,9.4-4.2,9.4-9.4s-4.2-9.4-9.4-9.4s-9.4,4.2-9.4,9.4S5.9,83.8,11.1,83.8z M50,83.8c5.2,0,9.4-4.2,9.4-9.4s-4.2-9.4-9.4-9.4s-9.4,4.2-9.4,9.4S44.8,83.8,50,83.8z M88.9,83.8c5.2,0,9.4-4.2,9.4-9.4 s-4.2-9.4-9.4-9.4s-9.4,4.2-9.4,9.4S83.7,83.8,88.9,83.8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Form styling */
+form {
+  max-width: 100%;
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--wealth-blue);
+  font-size: 1.1rem;
+  position: relative;
+  padding-left: 18px;
+}
+
+label::before {
+  content: '•';
+  color: var(--wealth-gold);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+  border: 2px solid #e1e1e1;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  color: var(--wealth-text);
+}
+
+input:focus {
+  border-color: var(--wealth-gold);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  outline: none;
+  background-color: white;
+}
+
+/* Button styling */
+button {
+  background: linear-gradient(45deg, var(--wealth-green) 0%, var(--wealth-light-green) 100%);
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background: linear-gradient(45deg, var(--wealth-light-green) 0%, var(--wealth-green) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+  z-index: 1;
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+button:hover::after {
+  opacity: 1;
+  transform: rotate(45deg) translate(50%, 50%);
+}
+
+/* Result display */
+#result {
+  margin: 30px 0;
+  padding: 25px;
+  background: linear-gradient(45deg, rgba(212, 175, 55, 0.08) 0%, rgba(30, 86, 49, 0.08) 100%);
+  border-radius: 15px;
+  border-left: 5px solid var(--wealth-gold);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--wealth-green);
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+#result:not(:empty) {
+  animation: resultPulse 2s infinite;
+}
+
+@keyframes resultPulse {
+  0% { box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 5px 25px rgba(212, 175, 55, 0.3); }
+  100% { box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1); }
+}
+
+/* Chart styling */
+canvas {
+  margin: 30px 0;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  background: white;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  position: relative;
+}
+
+canvas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='12' y='40' font-family='Arial' font-size='35' fill='rgba(212, 175, 55, 0.03)'%3E$%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+  z-index: -1;
+  border-radius: 15px;
+  opacity: 0.5;
+}
+
+/* Table styling */
+#totalSavingsTable {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+#totalSavingsTable th {
+  background: linear-gradient(45deg, var(--wealth-blue) 0%, var(--wealth-accent) 100%);
+  color: white;
+  padding: 18px;
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+#totalSavingsTable th:first-child {
+  border-top-left-radius: 15px;
+}
+
+#totalSavingsTable th:last-child {
+  border-top-right-radius: 15px;
+}
+
+#totalSavingsTable td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+#totalSavingsTable tr:nth-child(even) {
+  background-color: rgba(212, 175, 55, 0.05);
+}
+
+#totalSavingsTable tr:hover td {
+  background-color: rgba(212, 175, 55, 0.1);
+}
+
+#totalSavingsTable tr:last-child td {
+  border-bottom: none;
+}
+
+#totalSavingsTable tr:last-child {
+  font-weight: 700;
+  background-color: rgba(30, 86, 49, 0.05);
+}
+
+#totalSavingsTable tr:last-child td:last-child {
+  color: var(--wealth-green);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+    padding: 30px 20px;
+  }
+  
+  #calculatorContainer {
+    margin: 30px 15px;
+    padding: 25px;
+  }
+  
+  label {
+    font-size: 1rem;
+  }
+  
+  input {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  button {
+    font-size: 1.1rem;
+    padding: 14px;
+  }
+  
+  #result {
+    font-size: 1.2rem;
+    padding: 20px;
+  }
+  
+  #totalSavingsTable th,
+  #totalSavingsTable td {
+    padding: 12px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    padding: 25px 15px;
+  }
+  
+  #calculatorContainer {
+    padding: 20px 15px;
+  }
+  
+  label {
+    font-size: 0.95rem;
+  }
+  
+  #result {
+    font-size: 1.1rem;
+    padding: 15px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--wealth-gold), var(--wealth-green));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wealth-dark-gold);
+}
+
+/* Extra decorative elements */
+#calculatorContainer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--wealth-gold) 0%, var(--wealth-light-green) 100%);
+}
+
+/* Fix for any chart display issues */
+#chartContainer {
+  position: relative;
+  margin-top: 30px;
+}
   </style>
-
-
-
-
-
-
-
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px; /* Add padding to body */
-    }
-
-    h1 {
-      background-color: #333;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      left: -20px;
-      right: -40px;
-      top: -20px;
-      width: 100%; /* Use max-width to prevent expansion beyond the viewport */
-    }
-
-    form {
-      max-width: 400px;
-      margin: 20px auto;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 16px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    #result {
-      margin-top: 20px;
-    }
-
-    canvas {
-      margin-top: 20px;
-    }
-
-    #totalSavingsTable {
-      display: none; /* Initially hide the table */
-      margin-top: 20px;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    #totalSavingsTable th, #totalSavingsTable td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
-    }
-  </style>
-
-
-
-
-
-
-
 
 </head>
-
-
-
 <body>
-
-
-
-
-
-
-
-
-
-
-
-
 
   <div id="navbar">
 
@@ -417,18 +620,6 @@
     <div id="repoList"></div>
 
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
   <h1>Compound Interest Calculator</h1>
 <div id="calculatorContainer">
   <form id="compoundInterestForm">
@@ -558,32 +749,11 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
 }
   </script>
 
-
-    
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
 
   const currentPageLocation = window.location.href;
 
   let displayedRepos = 0; // Counter for displayed repositories
-
-
 
   // Fetch data from GitHub API
 
@@ -600,9 +770,6 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
         .filter(repo => repo.homepage === currentPageLocation)
 
         .flatMap(repo => repo.topics || []);
-
-
-
       // Create Material-UI card for each repository with the same topics
 
       const repoList = document.getElementById('repoList');
@@ -610,56 +777,33 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
       data.forEach(repo => {
 
         const repoTopics = repo.topics || [];
-
-
-
         if (
 
           displayedRepos >= 4 ||
 
           repo.homepage === currentPageLocation ||
-
           !repoTopics.some(topic => currentRepoTopics.includes(topic))
 
         ) {
-
           // Skip creating card if reached the limit, homepage matches current page location,
 
           // or repository has no common topics
-
           return;
-
         }
-
-
-
         const repoCard = document.createElement('div');
 
         repoCard.classList.add('repoCard');
-
         repoCard.innerHTML = `
-
           <div class="repoTitle">${repo.name}</div>
-
           <div class="repoDescription">${repo.description}</div>
-
           <div class="repoLink">
-
             <a href="${repo.homepage}" target="_blank">Homepage <i class="fas fa-external-link-alt"></i></a>
-
           </div>
-
         `;
-
         repoList.appendChild(repoCard);
-
-
-
         displayedRepos++;
 
       });
-
-
 
       // Find the "Main" repository and create a special card with a dynamic link
 
@@ -668,8 +812,6 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
       if (mainRepo) {
 
         const mainRepoCard = document.createElement('div');
-
-
 
         mainRepoCard.innerHTML = `
 
@@ -685,8 +827,6 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
 
     .catch(error => console.error('Error fetching data:', error));
 
-
-
   function toggleMenu() {
 
     const menuOverlay = document.getElementById('menuOverlay');
@@ -694,8 +834,6 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
     const body = document.body;
 
     const menuIcon = document.getElementById('menuIcon');
-
-
 
     if (menuOverlay.style.display === 'block') {
 
@@ -714,11 +852,7 @@ function calculateTotalSavings(principal, rate, years, monthlyContribution) {
       menuIcon.classList.replace('fa-bars', 'fa-times');
 
     }
-
   }
-
 </script>
-
 </body>
-
-</html>
+    </html>
